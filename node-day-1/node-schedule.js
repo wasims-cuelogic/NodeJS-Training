@@ -6,7 +6,7 @@ var counter = 0,
 
 taskSchedule.minute = 35;
 
-function reportOnSchdeule () {
+function reportOnSchdeule() {
     //increment the counter
     counter++;
 
