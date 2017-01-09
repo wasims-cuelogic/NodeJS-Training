@@ -12,6 +12,4 @@ var token = jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256'});
 // sign asynchronously 
 jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(err, token) {
   console.log("Generated key is ",token);
-
-
 });
