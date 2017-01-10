@@ -4,9 +4,10 @@ var mongoose = require('mongoose');
 var employeeSchema = mongoose.Schema({
     FirstName: {
         type: String,
+        index: true
     },
     LastName: {
-        type: String,
+        type: String
     },
     Age: {
         type: Number
@@ -46,6 +47,6 @@ module.exports.updateEmployee = function (id, employee, options, callback) {
 
 //Delete Employee 
 module.exports.deleteEmployee = function (id, options, callback) {
-    var query = { _id: id };    
+    var query = { _id: id };
     Employee.findByIdAndRemove(query, options, callback);
 }
