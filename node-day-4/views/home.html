@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-sm-8 col-md-8 col-md-offset-2">
+        <h3>Hapi Cookie Authentication</h3>
+        <h4>Please <em>register</em> to use our awesome widgets!</h4>
+        <p>
+            Use the following credentials to log in.
+        </p>
+        <ul>
+            <li><b>Username:</b> future</li>
+            <li><b>Password:</b> studio</li>
+        </ul>
+
+        <form action="/" method="POST" class="form-horizontal">
+
+            <div class="form-group">
+                <label for="username" class="col-sm-2 control-label">Username <span class="required-field">*</span></label>
+                <div class="col-sm-10">
+                    <input class="form-control {{error.name.class}}" id="username" name="username" placeholder="Your Name" value="{{values.username}}">
+                    <p class='help-block'>{{error.username.message}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label">Password <span class="required-field">*</span></label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control {{error.password.class}}" id="password" name="password" placeholder="Your Name"
+                        value="{{values.password}}">
+                    <p class='help-block'>{{error.password.message}}</p>
+                </div>
+            </div>
+
+            <div class="form-group pull-right">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn-success btn btn-lg">Log in</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
