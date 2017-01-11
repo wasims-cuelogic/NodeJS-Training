@@ -26,6 +26,8 @@ module.exports = {
         handler: function handler(req, res) {
 
             var user = new User();
+            user.fname = req.payload.fname;
+            user.lname = req.payload.lname;
             user.email = req.payload.email;
             user.username = req.payload.username;
             user.admin = true;

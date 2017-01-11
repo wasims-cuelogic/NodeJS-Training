@@ -11,7 +11,7 @@ var server = new Hapi.Server();
 
 // The connection object takes some
 // configuration, including the port
-server.connection({ host: 'localhost', port: 3000, routes: { cors: true } });
+server.connection({ host: 'localhost', port: 3001, routes: { cors: true } });
 
 var dbUrl = 'mongodb://localhost:27017/hapi-app';
 
@@ -43,7 +43,7 @@ var options = {
         myConsoleReporter: [{
             module: 'good-squeeze',
             name: 'Squeeze',
-            args: [{ log: '*', response: '*' }]
+            args: [{ log: '*', response: '*', request: '*' }]
         }, {
             module: 'good-console'
         }, 'stdout'],

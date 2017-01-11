@@ -1,4 +1,4 @@
-Promise = require('bluebird');
+var Promise = require('bluebird');
 var fs = require('fs');
 
 var A = function () {
