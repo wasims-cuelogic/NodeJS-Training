@@ -1,7 +1,7 @@
 {
-  "name": "hapijs-jwt-authentication",
+  "name": "hapijs-jwt-authentication-assignment",
   "version": "1.0.0",
-  "description": "getting started with Hapijs authentication",
+  "description": "Assignment for Day 5 & 6",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/wasims-cuelogic/NodeJS-Training#readme",
   "dependencies": {
     "bcrypt": "^1.0.2",
+    "bluebird": "^3.4.7",
     "boom": "^4.2.0",
     "dotenv": "^4.0.0",
     "glob": "^7.1.1",
