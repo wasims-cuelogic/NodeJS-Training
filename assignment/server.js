@@ -13,9 +13,9 @@ var server = new Hapi.Server();
 
 // The connection object takes some
 // configuration, including the port
-server.connection({ host: process.env.HOST, port: process.env.PORT, routes: { cors: true } });
+server.connection({ host: process.env.HOST, port: process.env.PORT || 3000, routes: { cors: true } });
 
-var dbUrl = 'mongodb://localhost:27017/' + process.env.DB_NAME;
+var dbUrl = process.env.MONGOURI;
 
 server.register(require('hapi-auth-jwt'), function (err) {
 

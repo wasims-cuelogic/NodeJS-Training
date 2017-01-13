@@ -12,15 +12,19 @@ module.exports = {
         pre: [{ method: verifyUniqueUser, assign: 'user' }],
         handler: function handler(req, res) {
             var id = req.params.id;
-            User.findOneAndUpdate({ _id: id }, req.pre.user, function (err, user) {
-                if (err) {
+
+            User.findOneAndUpdate({ _id: id }, req.pre.user)
+                .then(function (user) {
+
+                    if (!user) {
+                        throw Boom.notFound('User not found!');
+                    }
+                    res({ message: 'User updated!' });
+
+                })
+                .catch(function (err) {
                     throw Boom.badRequest(err);
-                }
-                if (!user) {
-                    throw Boom.notFound('User not found!');
-                }
-                res({ message: 'User updated!' });
-            });
+                })
         },
         validate: {
             payload: updateUserSchema.payloadSchema,

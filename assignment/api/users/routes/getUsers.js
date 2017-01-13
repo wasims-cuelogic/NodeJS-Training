@@ -7,18 +7,20 @@ module.exports = {
     method: 'GET',
     path: '/api/users',
     config: {
-        handler: function handler(req, res) {
+        handler: function handler(request, reply) {
             User.find()
                 // Deselect the password and version fields
-                .select('-password -__v').exec(function (err, users) {
-                    if (err) {
-                        throw Boom.badRequest(err);
-                    }
+                .select('-password -__v')
+                .exec()
+                .then(function (users) {
                     if (!users.length) {
                         throw Boom.notFound('No users found!');
                     }
-                    res(users);
-                });
+                    reply(users);
+                })
+                .catch(function (err) {
+                    throw Boom.badRequest(err);
+                })
         },
         // Add authentication to this route
         // The user must have a scope of `admin`

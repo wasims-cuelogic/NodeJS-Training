@@ -21,18 +21,21 @@ module.exports = {
 
             var userActivity = new UserActivity();
 
-            userActivity.ip = requestIp.getClientIp(req); 
+            userActivity.ip = requestIp.getClientIp(req);
             userActivity.user_agent = req.headers['user-agent'];
             userActivity.user_id = req.pre.user._id;
             userActivity.date = Date.now();
 
-            userActivity.save(function (err, user) {
-                if (err) {
-                    throw Boom.badRequest(err);
-                }
+            userActivity
+                .save()
+                .then(function (user) {
 
-                res({ id_token: createToken(req.pre.user) }).code(201);
-            });            
+                    res({ id_token: createToken(req.pre.user) }).code(201);
+
+                })
+                .catch(function (err) {
+                    throw Boom.badRequest(err);
+                })
         },
         validate: {
             payload: authenticateUserSchema

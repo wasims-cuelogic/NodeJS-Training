@@ -9,19 +9,21 @@ module.exports = {
     config: {
 
         handler: function handler(request, reply) {
-            User.find({
-                _id: request.params.id
-            })
+                User.find({
+                    _id: request.params.id
+                })
                 // Deselect the password and version fields
-                .select('-password -__v').exec(function (err, users) {
-                    if (err) {
-                        throw Boom.badRequest(err);
-                    }
+                .select('-password -__v')
+                .exec()
+                .then(function (users) {                                     
                     if (!users.length) {
                         throw Boom.notFound('No users found!');
                     }
                     reply(users);
-                });
+                })
+                .catch(function (err) {
+                    throw Boom.badRequest(err);
+                })            
         },
         auth: {
             strategy: 'jwt',

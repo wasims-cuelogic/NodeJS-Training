@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Promise = require('bluebird'); 
+Promise.promisifyAll(mongoose); 
 
 var UserSchema = new Schema({
     fname: { type: String, required: true },
