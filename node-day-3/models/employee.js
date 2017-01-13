@@ -4,10 +4,12 @@ var mongoose = require('mongoose');
 var employeeSchema = mongoose.Schema({
     FirstName: {
         type: String,
+        required: true,
         index: true
     },
     LastName: {
-        type: String
+        type: String,
+        required: true
     },
     Age: {
         type: Number

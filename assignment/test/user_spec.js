@@ -3,6 +3,7 @@ var chai = require("chai");
 var assert = chai.assert;
 var request = require('supertest');
 var app = require('../server');
+var should = require('should');
 
 describe("User Schema", function () {
     it("should have first name", function (done) {
@@ -41,18 +42,6 @@ describe("User Schema", function () {
         });
     });
 
-    // it('should GET users', function (done) {
-    //     request(app)
-    //         .get('/api/users')
-    //         .end(function (err, res) {
-    //             // Enable the console log to print the assertion output
-    //             console.log = log;
-    //             var data = JSON.parse(res.text);
-    //             expect(err).to.be.null;
-    //             expect(data.length).to.equal(3);
-    //             done();
-    //         });
-    // });
 });
 
 
