@@ -26,16 +26,19 @@ module.exports = {
             userActivity.user_id = req.pre.user._id;
             userActivity.date = Date.now();
 
-            userActivity
-                .save()
+            var deleteActivity = UserActivity.remove({ user_id: req.pre.user._id });
+
+            deleteActivity.then(function () {
+                return userActivity.save(); // returns a promise
+            })
                 .then(function (user) {
-
                     res({ id_token: createToken(req.pre.user) }).code(201);
-
                 })
                 .catch(function (err) {
                     throw Boom.badRequest(err);
                 })
+
+
         },
         validate: {
             payload: authenticateUserSchema
