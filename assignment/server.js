@@ -7,6 +7,9 @@ var glob = require('glob');
 var path = require('path');
 var secret = require('./config');
 
+var Promise = require('bluebird');
+Promise.promisifyAll(mongoose);
+
 require('dotenv').config();
 
 var server = new Hapi.Server();
@@ -71,11 +74,9 @@ server.register({
         }
 
         // Once started, connect to Mongo through Mongoose
-        mongoose.connect(dbUrl, {}, function (err) {
-            if (err) {
-                throw err;
-            }
-        });
-        server.log('info', 'Server running at: ' + server.info.uri);
+        mongoose.connect(dbUrl, {})
+            .then(function () { server.log('info', 'Server running at: ' + server.info.uri); })
+            .catch(function (err) { server.log('error', err) })
+
     });
 });
