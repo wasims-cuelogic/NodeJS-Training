@@ -36,13 +36,14 @@ module.exports = {
                     throw Boom.badRequest(err);
                 }
                 user.password = hash;
-                user.save(function (err, user) {
-                    if (err) {
-                        throw Boom.badRequest(err);
-                    }
-                    // If the user is saved successfully, issue a JWT
+
+                var promise = user.save()
+                promise.then(function (user) {
                     res({ id_token: createToken(user) }).code(201);
-                });
+                })
+                promise.catch(function (err) {
+                    throw Boom.badRequest(err);
+                })
             });
         },
         // Validate the payload against the Joi schema
