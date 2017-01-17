@@ -3,6 +3,7 @@ process.env.NODE_ENV = 'test';
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var mongoose = require("mongoose");
+var nock = require('nock');
 
 var server = require('../server');
 var should = chai.should();
@@ -11,7 +12,7 @@ var expect = require('chai').expect;
 
 var url = 'http://localhost:3001';
 
-describe('User', function () {
+describe('User APIs', function () {
 
     it('should give Username Already Present response on /api/users POST', function (done) {
         chai.request(url)
@@ -88,25 +89,7 @@ describe('User', function () {
 
 
 
-    // it('should add a SINGLE user on /api/users POST', function (done) {
-    //     chai.request(url)
-    //         .post('/api/users')
-    //         .set("Content-Type", "application/json")
-    //         .send({
-    //             "fname": "testfname",
-    //             "lname": "testlname",
-    //             "username": "testusername",
-    //             "email": "test123@gmail.com",
-    //             "password": "pass@123"
 
-    //         })
-    //         .end(function (err, res) {
-    //             res.status.should.be.equal(201);
-    //             res.body.should.have.property('id_token');
-    //             res.should.be.json;
-    //             done();
-    //         });
-    // })
 
     // it('should add a SINGLE user on /api/users POST', function (done) {
 
@@ -122,4 +105,58 @@ describe('User', function () {
     //     });
 
     // });
+});
+
+describe('User Registration', function () {
+    var user = void 0;
+    before(function () {
+        user = {
+            "fname": "testfname",
+            "lname": "testlname",
+            "username": "testusername",
+            "email": "test123@gmail.com",
+            "password": "pass@123"
+        };
+    });
+
+
+    it('should register a new user and return a token id', function (done) {
+
+        var response = {
+            "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU4N2UyMGI1OWVhMGJlMzNlYWM5NjE2NiIsInVzZXJuYW1lIjoiYXNkYXNzIiwiaWF0IjoxNDg0NjYwOTE3LCJleHAiOjE0ODQ2NjQ1MTd9.Zn9XguQ5sbuPv_KapzKGZA2vvUgCZ-jgSxT6surTTQ8"
+        }
+
+        nock('http://localhost:3001')
+            .post('/api/users', user)
+            .reply(200, response);
+
+        expect(response).to.have.property('id_token');
+        done();
+    });
+});
+
+
+describe('User Authentication', function () {
+    var userCredentials = void 0;
+    before(function () {
+        userCredentials = {
+            "username": "testfname",
+            "password": "pass@123"
+        };
+    });
+
+
+    it('should authenticate user credentials and return a token id', function (done) {
+
+        var response = {
+            "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU4N2UyMGI1OWVhMGJlMzNlYWM5NjE2NiIsInVzZXJuYW1lIjoiYXNkYXNzIiwiaWF0IjoxNDg0NjYwOTE3LCJleHAiOjE0ODQ2NjQ1MTd9.Zn9XguQ5sbuPv_KapzKGZA2vvUgCZ-jgSxT6surTTQ8"
+        }
+
+        nock('http://localhost:3001')
+            .post('/api/users', userCredentials)
+            .reply(200, response);
+
+        expect(response).to.have.property('id_token');
+        done();
+    });
 });
