@@ -25,7 +25,7 @@ server.register(require('hapi-auth-jwt'), function (err) {
     // We're giving the strategy both a name
     // and scheme of 'jwt'
     server.auth.strategy('jwt', 'jwt', 'required', {
-        key: secret,
+        key: process.env.SECRET_KEY,
         verifyOptions: { algorithms: ['HS256'] }
     });
 
