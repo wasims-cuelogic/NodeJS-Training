@@ -39,10 +39,12 @@
     "joi-objectid": "^2.0.0",
     "mongoose": "^4.7.6",
     "nodemon": "^1.11.0",
+    "relish": "^0.2.4",
     "request-ip": "^1.2.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "mocha": "^3.2.0",
     "nock": "^9.0.2",
     "should": "^11.1.2",

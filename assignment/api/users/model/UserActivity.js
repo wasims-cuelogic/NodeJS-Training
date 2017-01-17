@@ -8,7 +8,7 @@ Promise.promisifyAll(mongoose);
 var UserActivity = new Schema({
     ip: { type: String },
     user_agent: { type: String },
-    user_id : {type: String},
+    user_id : {type: Schema.ObjectId},
     date: { type: Date }
 });
 

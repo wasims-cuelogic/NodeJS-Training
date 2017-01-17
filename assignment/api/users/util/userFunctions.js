@@ -49,7 +49,18 @@ function verifyCredentials(req, res) {
     });
 }
 
+
+function hashPassword(password, cb) {
+    // Generate a salt at level 10 strength
+    bcrypt.genSalt(10, function (err, salt) {
+        bcrypt.hash(password, salt, function (err, hash) {
+            return cb(err, hash);
+        });
+    });
+}
+
 module.exports = {
     verifyUniqueUser: verifyUniqueUser,
-    verifyCredentials: verifyCredentials
+    verifyCredentials: verifyCredentials,
+    hashPassword: hashPassword
 };
