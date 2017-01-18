@@ -149,7 +149,7 @@ describe('User Authentication', function () {
     it('should authenticate user credentials and return a token id', function (done) {
 
         var response = {
-            "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU4N2UyMGI1OWVhMGJlMzNlYWM5NjE2NiIsInVzZXJuYW1lIjoiYXNkYXNzIiwiaWF0IjoxNDg0NjYwOTE3LCJleHAiOjE0ODQ2NjQ1MTd9.Zn9XguQ5sbuPv_KapzKGZA2vvUgCZ-jgSxT6surTTQ8"
+            "id_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU4Nzc2ZjI1NWRmNGI1MGUwZmViYjNiMSIsInVzZXJuYW1lIjoid2FzaW1zIiwic2NvcGUiOiJhZG1pbiIsImlhdCI6MTQ4NDY2Mjg3MywiZXhwIjoxNDg0NjY2NDczfQ.X1tKkG5oJl5TxJ4j7uxLINrJAKiG5mP6eAq1tr0IJNk"
         }
 
         nock('http://localhost:3001')

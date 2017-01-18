@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test';
+
 var User = require("../api/users/model/User");
 var chai = require("chai");
 var assert = chai.assert;
