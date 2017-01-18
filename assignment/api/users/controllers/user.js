@@ -17,8 +17,13 @@ var UserActivity = require('../model/UserActivity');
 
 
 var Relish = require('relish')({
+    stripQuotes: true, 
     messages: {
-        'data.name': 'Please enter your full name'
+        'fname': 'Please enter first name',
+        'lname': 'Please enter last name',
+        'username': 'Please enter username',
+        'email': 'Please enter email',
+        'password': 'Please enter password',
     }
 });
 
@@ -56,12 +61,7 @@ UserController.prototype = (function () {
             },
             validate: {
                 failAction: Relish.failAction,
-                payload: authenticateUserSchema
-                // failAction: function (request, reply, source, error) {
-
-                //     error.output.payload.message = 'Please enter all values';
-                //     return reply(error).code(400);
-                // }
+                payload: authenticateUserSchema                
             }
         },
         createUser: {
