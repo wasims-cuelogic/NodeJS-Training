@@ -88,10 +88,25 @@ UserController.prototype = (function () {
 
                     var promise = user.save()
                     promise.then(function (user) {
+
+                        //Added code to insert in activity collection
+                        var userActivity = new UserActivity();
+
+                        userActivity.ip = requestIp.getClientIp(req);
+                        userActivity.user_agent = req.headers['user-agent'];
+                        userActivity.user_id = user._id;
+                        userActivity.date = Date.now();
+
+                        var deleteActivity = UserActivity.remove({ user_id: user._id });
+
+                        deleteActivity.then(function () {
+                            return userActivity.save(); // returns a promise
+                        })
+
+
                         res({ id_token: createToken(user) }).code(201);
                     })
                     promise.catch(function (err) {
-                        console.log("Innn222")
                         throw Boom.badRequest(err);
                     })
                 });
@@ -117,7 +132,13 @@ UserController.prototype = (function () {
                         reply(users);
                     })
                     .catch(function (err) {
-                        throw Boom.badRequest(err);
+                        if (err.name === 'CastError') {
+                            throw Boom.badRequest('Invalid format of user id');
+                        }
+                        else {
+                            throw Boom.badRequest(err);
+                        }
+
                     })
             },
             auth: {
