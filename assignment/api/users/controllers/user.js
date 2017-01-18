@@ -13,18 +13,19 @@ var hashPassword = require('../util/userFunctions').hashPassword;
 var createToken = require('../util/token');
 var requestIp = require('request-ip');
 
-var UserActivity = require('../model/UserActivity');
+var Bluebird = require('bluebird');
+require('dotenv').config();
 
 
 var Relish = require('relish')({
-    stripQuotes: true, 
-    messages: {
-        'fname': 'Please enter first name',
-        'lname': 'Please enter last name',
-        'username': 'Please enter username',
-        'email': 'Please enter email',
-        'password': 'Please enter password',
-    }
+    stripQuotes: true,
+    // messages: {
+    //     'fname': 'Please enter first name',
+    //     'lname': 'Please enter last name',
+    //     'username': 'Please enter username',
+    //     'email': 'Please enter email',
+    //     'password': 'Please enter password',
+    // }
 });
 
 function UserController() { };
@@ -61,7 +62,7 @@ UserController.prototype = (function () {
             },
             validate: {
                 failAction: Relish.failAction,
-                payload: authenticateUserSchema                
+                payload: authenticateUserSchema
             }
         },
         createUser: {
@@ -184,6 +185,43 @@ UserController.prototype = (function () {
             // Validate the payload against the Joi schema
             validate: {
                 payload: checkUserSchema
+            }
+        },
+        getUsersNotLoggedIn: {
+            handler: function handler(request, reply) {
+                UserActivity.find({
+                    "date":
+                    {
+                        $lte: (new Date((new Date()).getTime() - (process.env.NOT_LOGGED_IN_DAYS * 24 * 60 * 60 * 1000)))
+                    }
+                })
+                    .select({ user_id: 1, _id: 0 })
+                    .sort({ "date": -1 })
+                    .exec(function (err, users) {
+                        if (err) {
+                            throw Boom.badRequest(err);
+                        }
+                        if (!users.length) {
+                            throw Boom.notFound('No users found!');
+                        }
+
+                        var usersIds = [];
+
+                        users.map((val) => {
+                            usersIds.push(val["user_id"]);
+                        });
+
+                        User
+                            .find({ _id: { $in: usersIds } })
+                            .select('-password -__v')
+                            .exec(function (err, usersLits) {
+                                reply(usersLits);
+                            });
+                    });
+            },
+            auth: {
+                strategy: 'jwt',
+                scope: ['admin']
             }
         }
     }

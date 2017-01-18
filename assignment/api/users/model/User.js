@@ -12,7 +12,8 @@ var UserSchema = new Schema({
     username: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
     reg_time: { type: Date, default: Date.now },
-    admin: { type: Boolean, required: true }
+    admin: { type: Boolean, required: true },
+    activity   : [{type: Schema.Types.ObjectId, ref: 'UserActivity' }]
 });
 
 module.exports = mongoose.model('User', UserSchema);
