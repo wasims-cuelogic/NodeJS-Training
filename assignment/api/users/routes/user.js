@@ -21,12 +21,12 @@ module.exports = [
             // Check the user's password against the DB
             pre: [{ method: verifyCredentials, assign: 'user' }],
             validate: {
-                failAction: Relish.options({
-                    messages: {
-                        'username': 'Please enter username',
-                        'password': 'Please enter password'
-                    }
-                }).failAction,
+                // failAction: Relish.options({
+                //     messages: {
+                //         'username': 'Please enter username',
+                //         'password': 'Please enter password'
+                //     }
+                // }).failAction,
                 payload: authenticateUserSchema
             }
         },

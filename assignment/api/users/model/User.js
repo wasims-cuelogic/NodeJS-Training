@@ -2,8 +2,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Promise = require('bluebird');
-Promise.promisifyAll(mongoose);
+mongoose.Promise = require('bluebird');
 
 var UserSchema = new Schema({
     fname: {
@@ -26,7 +25,7 @@ var UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: "Password is required"
     },
     reg_time: {
         type: Date,

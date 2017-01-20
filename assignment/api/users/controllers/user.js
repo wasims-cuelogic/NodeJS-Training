@@ -48,14 +48,10 @@ UserController.prototype = (function () {
             user.username = request.payload.username;
             user.admin = false;
             hashPassword(request.payload.password, function (err, hash) {
-
-                if (err) {
-                    throw Boom.badRequest(err);
-                }
+                                
                 user.password = hash;
                 user.save()
-                    .then(function (user) {
-                        console.log("User ", user)
+                    .then(function (user) {                        
 
                         //Added code to insert in activity collection
                         var userActivity = new UserActivity();
@@ -75,7 +71,7 @@ UserController.prototype = (function () {
                         reply({ id_token: createToken(user) }).code(201);
                     })
                     .catch(function (err) {
-                        console.log(err)
+                        
                         var errMessage = {};
 
                         _.each(err.errors, function (error, key) {
@@ -85,7 +81,7 @@ UserController.prototype = (function () {
                         //console.log(errMessage)
                         // throw Boom.badRequest('Invalid format of user id');
                         //throw Boom.badRequest(fnameErrMsg);
-                        reply(errMessage).code(400);
+                        reply({"statusCode":400,"error":"Bad Request","message":errMessage}).code(400);
                     })
             });
         },

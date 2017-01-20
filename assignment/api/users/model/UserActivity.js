@@ -2,8 +2,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Promise = require('bluebird'); 
-Promise.promisifyAll(mongoose); 
+mongoose.Promise = require('bluebird'); 
 
 var UserActivity = new Schema({
     ip: { type: String },
