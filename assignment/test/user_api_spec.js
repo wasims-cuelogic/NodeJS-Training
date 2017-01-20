@@ -63,16 +63,16 @@ describe('User APIs', function () {
             });
     });
 
-    it('should authenticate a user on /api/users/authenticate POST', function (done) {
-        chai.request(url)
-            .post('/api/users/authenticate')
-            .send({ username: 'wasims', password: 'wasim@123' })
-            .set("Content-Type", "application/json")
-            .end(function (err, res) {
-                expect(res.body).to.have.property('id_token');
-                done();
-            });
-    });
+    // it('should authenticate a user on /api/users/authenticate POST', function (done) {
+    //     chai.request(url)
+    //         .post('/api/users/authenticate')
+    //         .send({ username: 'wasims', password: 'wasim@123' })
+    //         .set("Content-Type", "application/json")
+    //         .end(function (err, res) {
+    //             expect(res.body).to.have.property('id_token');
+    //             done();
+    //         });
+    // });
 
 
     // it('should return users array on /api/users GET', function (done) {

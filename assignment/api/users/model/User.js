@@ -6,14 +6,36 @@ var Promise = require('bluebird');
 Promise.promisifyAll(mongoose);
 
 var UserSchema = new Schema({
-    fname: { type: String, required: true },
-    lname: { type: String, required: true },
-    email: { type: String, required: true, index: { unique: true } },
-    username: { type: String, required: true, index: { unique: true } },
-    password: { type: String, required: true },
-    reg_time: { type: Date, default: Date.now },
-    admin: { type: Boolean, required: true },
-    activity: [{ type: Schema.Types.ObjectId, ref: 'UserActivity' }]
+    fname: {
+        type: String,
+        required: "First Name is required"
+    },
+    lname: {
+        type: String,
+        required: "Last Name is required"
+    },
+    email: {
+        type: String,
+        required: "Email is required",
+        index: { unique: true }
+    },
+    username: {
+        type: String,
+        required: "Username is required",
+        index: { unique: true }
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    reg_time: {
+        type: Date,
+        default: Date.now
+    },
+    admin: {
+        type: Boolean,
+        required: true
+    }
 });
 
 // UserSchema.statics.findUser = function findUser(id, cb) {
