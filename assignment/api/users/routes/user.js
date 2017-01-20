@@ -2,11 +2,11 @@
 
 var userController = require('../controllers/user'),
     verifyCredentials = require('../util/userFunctions').verifyCredentials,
-    authenticateUserSchema = require('../schemas/authenticateUser'),
-    createUserSchema = require('../schemas/createUser'),
-    updateUserSchema = require('../schemas/updateUser'),
+    authenticateUserSchema = require('../schemas-validate/authenticateUser'),
+    createUserSchema = require('../schemas-validate/createUser'),
+    updateUserSchema = require('../schemas-validate/updateUser'),
     verifyUniqueUser = require('../util/userFunctions').verifyUniqueUser,
-    checkUserSchema = require('../schemas/checkUser'),
+    checkUserSchema = require('../schemas-validate/checkUser'),
 
     Relish = require('relish')({
         stripQuotes: true
